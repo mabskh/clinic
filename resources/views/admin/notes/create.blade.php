@@ -10,6 +10,12 @@
             display: none;
         }
     </style>
+    <style>
+        .ck-editor__editable_inline {
+            min-height: 400px;
+        }
+    </style>
+
 @stop
 @section('content')
 
@@ -204,15 +210,18 @@
                                                                     @enderror
                                                                 </div>
 
-                                                                <div class="col-lg-8">
-                                                                    <label>الملاحظة </label>
-                                                                    <textarea type="text" cols="5" rows="6" id="note" name="note" class="form-control"
-                                                                              placeholder=""></textarea>
-                                                                    @error('note')
-                                                                    <span class="text-danger">{{$message}}</span>
-                                                                    @enderror
-                                                                </div>
+
                                                             </div>
+
+                                                            <div class="col-lg-12">
+                                                                <label>الملاحظة </label>
+                                                                <textarea type="text" cols="5" rows="6" id="note" name="note" class="form-control"
+                                                                          placeholder=""></textarea>
+                                                                @error('note')
+                                                                <span class="text-danger">{{$message}}</span>
+                                                                @enderror
+                                                            </div>
+
                                                         </div>
 
                                                         <div class="card-footer">
@@ -261,6 +270,7 @@
 
 @push('scripts')
     <script src="{{ asset('assets/js/ckeditor.js') }}"></script>
+    <script> <script src="{{ asset('assets/js/pages/crud/file-upload/dropzonejsd1cf.js?v=7.1.6') }}"></script></script>
     <script>
         if (document.querySelector("#note")) {
             ClassicEditor.create(document.querySelector("#note"),{
@@ -276,6 +286,7 @@
                 } );
         }
     </script>
+
 @endpush
 
 

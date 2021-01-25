@@ -2748,7 +2748,7 @@
                                                     <input type="hidden" name="patient_id" value="{{ $patient->id }}">
                                                     <div class="col-lg-12 col-md-9 col-sm-12">
                                                         <label for="note_value"></label>
-                                                        <textarea class="form-control" id="note_value" name="note_value"
+                                                        <textarea class="form-control form-control-solid" id="note_value" name="note_value"
                                                                   placeholder="أضف ملاحظة .." rows="2"></textarea>
 
                                                     </div>
@@ -2762,21 +2762,21 @@
                                                             <div class="timeline-item">
                                                                 <div class="timeline-media">
                                                                     <img alt="Pic"
-                                                                         src="../../../../theme/html/demo1/dist/assets/media/users/300_25.jpg">
+                                                                         src="">
                                                                 </div>
                                                                 <div class="timeline-content">
                                                                     <div
                                                                         class="d-flex align-items-center justify-content-between ">
                                                                         <div class="mr-2">
-                                                                            <a href="#"
+<!--                                                                            <a href="#"
                                                                                class="text-dark-75 text-hover-primary font-weight-bold">New
-                                                                                order has been placed</a>
-                                                                            <span class="text-muted ml-2">Today</span>
+                                                                                order has been placed</a>-->
+                                                                            <span class="text-muted ml-2">{{ $note->created_at->diffForHumans() }}</span>
                                                                             <span
                                                                                 class="label label-light-success font-weight-bolder label-inline ml-3">new</span>
                                                                         </div>
                                                                     </div>
-                                                                    <p class="p-0">{!! $note->note !!}</p>
+                                                                    <a href="{{ route('admin.notes.edit' , $note->id) }}" class="p-0 pt-3 my-2 ml-2"> {!! $note->note !!}</a>
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -5044,25 +5044,21 @@
                     url: "{{ route('admin.notes.ajax.add') }}",
                     data: {
                         "note": note,
-                        "_token": "{{ csrf_token() }}",
-                        "patient_id": patient_id
+                        "patient_id": patient_id,
+                        "_token": "{{ csrf_token() }}"
                     },
                     success: function (response) {
                         if (response) {
                             $('#note_value').val('');
                             $("#notes_tree").prepend('<div class="timeline timeline-3 mb-3" id="notes_tree"><div class="timeline-items"><div class="timeline-item"><div class="timeline-media">' +
-                                '<img src="'+response.url+'" alt="Pic"></div><div class="timeline-content"><div class="d-flex align-items-center justify-content-between mb-3">' +
-                                '<div class="mr-2"><a href="#" class="text-dark-75 text-hover-primary font-weight-bold">show</a><span class="text-muted ml-2">'+response.created_at+'</span>' +
-                                '<span class="label label-light-success font-weight-bolder label-inline ml-2">new</span></div></div><p class="p-0">' + response.note + '</p></div></div></div></div>');$("#notes_tree").prepend('<div class="timeline timeline-3 mb-3" id="notes_tree"><div class="timeline-items"><div class="timeline-item"><div class="timeline-media">' +
-                                '<img src="'+response.url+'" alt="Pic"></div><div class="timeline-content"><div class="d-flex align-items-center justify-content-between mb-3">' +
-                                '<div class="mr-2"><a href="#" class="text-dark-75 text-hover-primary font-weight-bold">show</a><span class="text-muted ml-2">'+response.created_at+'</span>' +
-                                '<span class="label label-light-success font-weight-bolder label-inline ml-2">new</span></div></div><p class="p-0">' + response.note + '</p></div></div></div></div>');
-                        }
+                                '<img src="" alt="Pic"></div><div class="timeline-content"><div class="d-flex align-items-center justify-content-between mb-3">' +
+                                '<div class="mr-2"><span class="text-muted ml-2">'+response.created_at+'</span>' +
+                                '<span class="label label-light-success font-weight-bolder label-inline ml-2">new</span></div></div><a href="'+response.url+'" class="p-0 pt-3 my-2 ml-2">' + response.note + '</a></div></div></div></div>');
+                             }
                     }
                 });
             });
         });
     </script>
-
 
 @endpush

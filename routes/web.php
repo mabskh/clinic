@@ -13,10 +13,13 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
-
-Route::get('/', function () {
-    return view('auth.login');
+Route::middleware('guest')->group(function (){
+    Route::get('/', function () {
+        return view('auth.login');
+    });
 });
+
+
 
 Auth::routes();
 
@@ -96,6 +99,9 @@ Route::name('admin.')->prefix('admin')->middleware('auth')->namespace('Admin')->
         Route::post('/update/{id}', 'NotesController@update')->name('notes.update');
         Route::get('/delete/{id}', 'NotesController@destroy')->name('notes.destroy');
         Route::post('/add-note', 'NotesController@addNote')->name('notes.ajax.add');
+
+        Route::get('/media/{id}', 'NotesController@getMedia')->name('notes.media');
+        Route::post('media', 'NotesController@getMedia')->name('notes.media.store');
     });
 
     Route::group(['prefix' => 'attributes'], function () {
@@ -106,6 +112,7 @@ Route::name('admin.')->prefix('admin')->middleware('auth')->namespace('Admin')->
         Route::get('/edit/{id}', ('AttributesController@edit'))->name('attributes.edit');
         Route::post('/update/{id}', 'AttributesController@update')->name('attributes.update');
         Route::get('/delete/{id}', 'AttributesController@destroy')->name('attributes.destroy');
+
     });
 
     Route::resource('constants', 'ConstantsController');

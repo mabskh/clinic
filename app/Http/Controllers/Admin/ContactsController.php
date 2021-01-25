@@ -51,7 +51,7 @@ class ContactsController extends Controller
         }
 
         if ($request->is_primary == 1){
-            
+
         }
 
         $data = new Contact();
@@ -91,7 +91,7 @@ class ContactsController extends Controller
     public function update($id, Request $request)
     {
         // return $request ;
-       return $data = Contact::with('patient')->find($id);
+        $data = Contact::with('patient')->find($id);
 
         if (!$data)
             return redirect()->route('admin.contacts.index')->with(['error' => 'هذه القيمة غير موجودة ']);

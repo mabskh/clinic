@@ -4,12 +4,14 @@ namespace App\Models;
 
 use App\User;
 use Illuminate\Database\Eloquent\Model;
+use Spatie\MediaLibrary\HasMedia;
+use Spatie\MediaLibrary\InteractsWithMedia;
 
-class Note extends Model
+class Note extends Model implements HasMedia
 {
+    use InteractsWithMedia;
+
     protected $guarded = [] ;
-
-
 
     public function patient()
     {
@@ -20,4 +22,6 @@ class Note extends Model
     {
         return $this->belongsTo(User::class);
     }
+
+
 }

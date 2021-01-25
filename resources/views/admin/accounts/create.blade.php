@@ -230,49 +230,6 @@
 
 
 
-    <div class="col-lg-3">
-        <label>اسم المستخدم</label>
-
-        <select name="patient_id" class="custom-select" id="inputGroupSelect02">
-            <option selected>اختر مستخدم</option>
-
-            @if($patients && $patients -> count() > 0)
-                @foreach($patients as $patient)
-                    <option  value="{{$patient -> id }}">{{$patient -> name}}</option>
-                @endforeach
-            @endif
-        </select>
-
-        @error('patient_id')
-        <span class="text-danger">{{$message}}</span>
-        @enderror
-
-    </div>
-
-    <div class="col-lg-3">
-        <label>وع الصفة</label>
-
-        <select name="attr_type" class="custom-select" >
-            <option selected>اختر نوع</option>
-            <option  value="0">نقاط ضعف</option>
-            <option  value="1">نقاك قوة</option>
-        </select>
-
-        @error('attr_type')
-        <span class="text-danger">{{$message}}</span>
-        @enderror
-
-    </div>
-
-    <div class="col-lg-5">
-        <label>الصفة</label>
-        <input type="text" name="attr" class="form-control" placeholder="">
-        @error('attr')
-        <span class="text-danger">{{$message}}</span>
-        @enderror
-
-    </div>
-
 </div>
 
 

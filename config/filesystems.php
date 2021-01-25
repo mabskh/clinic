@@ -71,6 +71,18 @@ return [
             'visibility' => 'public',
         ],
 
+        'notes' => [
+            'driver' => 'local',
+            'root' => public_path() . '/assets/images/notes/',
+            'url' => env('APP_URL') . '/public',
+            'visibility' => 'public',
+        ],
+
+        'media' => [
+            'driver' => 'local',
+            'root' => public_path() . '/assets/images/',
+        ],
+
 
         's3' => [
             'driver' => 's3',

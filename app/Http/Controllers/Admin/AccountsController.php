@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Patient;
 use App\User;
 use App\Models\Account;
 use Illuminate\Http\Request;
@@ -16,9 +17,10 @@ class AccountsController extends Controller
     }
 
     public function create(){
+        $patients = Patient::all();
      $users =   User::with('accounts')->get();
-    
-        return view('admin.accounts.create' , compact('users'));
+
+        return view('admin.accounts.create' , compact('users' , 'patients'));
     }
 
     public function store(Request $request){
@@ -38,7 +40,7 @@ class AccountsController extends Controller
         if ($request->has('photo')) {
             $filePath = uploadImage('accounts', $request->photo);
         }
- 
+
        Account::create([
         'link' => $request->link ,
         'email' => $request->email ,
@@ -54,11 +56,11 @@ class AccountsController extends Controller
         'work_place' => $request->work_place,
         'current_place' => $request->current_place ,
         'photo' => $filePath
-        
+
         ]);
 
         return redirect()->route('admin.accounts.index')->with('success', 'تم الحفظ بنجاح');
-            
+
       }
 
       public function show($id){
@@ -71,29 +73,29 @@ class AccountsController extends Controller
 
       public function edit($id)
       {
-  
+
           //get specific categories and its translations
           $account = Account::find($id);
-  
+
           if (!$account)
               return redirect()->route('admin.accounts.index')->with(['error' => 'هذا الحساب غير موجود ']);
               $users =   User::with('accounts')->get();
           return view('admin.accounts.edit', compact('account' , 'users'));
-  
+
       }
 
       public function update($id, Request $request)
       {
 
         $account = Account::find($id);
-  
+
         if (!$account)
             return redirect()->route('admin.accounts.index')->with(['error' => 'هذا الحساب غير موجود']);
-      
-         
+
+
         $account->update($request->all());
 
-      
+
         return redirect()->route('admin.accounts.index')->with(['success' => 'تم التحديث بنجاح']);
 
       }
@@ -101,7 +103,7 @@ class AccountsController extends Controller
       public function destroy($id){
 
         $account = Account::find($id);
-  
+
         if (!$account)
             return redirect()->route('admin.accounts.index')->with(['error' => 'هذا الحساب غير موجود']);
 
@@ -109,7 +111,7 @@ class AccountsController extends Controller
             return redirect()->route('admin.accounts.index')->with(['success' => 'تم الحذف بنجاح']);
       }
 
-    
-  
+
+
 
 }

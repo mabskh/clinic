@@ -9,6 +9,7 @@ class Patient extends Model
 {
     protected $guarded = [];
 
+
     public function account(){
         return $this->belongsTo('App\Models\Account');
     }

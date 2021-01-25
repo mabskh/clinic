@@ -42,8 +42,8 @@ class NotesController extends Controller
 
         $data = new Note();
         $data->patient_id = $request->patient_id;
-        $data->note = $request->note;
-        $data->user_id = Auth::id();
+        $data->note       = $request->note;
+        $data->user_id    = Auth::id();
         $data->save();
 
         return redirect()->route('admin.notes.index')->with(['success' => 'تمت الاضافة بنجاح']);
@@ -51,7 +51,7 @@ class NotesController extends Controller
 
     public function show($id){
 
-        $row = AppStatic::with('children')->find($id);
+        $row = Note::with('media' , 'user')->find($id);
 
         if (!$row)
             return redirect()->route('admin.notes.index')->with(['error' => 'هذه القيمة غير موجودة ']);
@@ -83,6 +83,8 @@ class NotesController extends Controller
         $sata->delete();
         return redirect()->route('admin.notes.index')->with(['success' => 'تم الحذف بنجاح']);
     }
+
+
     public function addNote(Request  $request)
     {
         $note = new Note();
@@ -93,9 +95,10 @@ class NotesController extends Controller
 
 
         return response()->json([
-                'created_at'=> $note->created_at,
-                'url' => 'hassan',
-                'note' => $note->note
+                'created_at'=> $note->created_at->diffForHumans() ,
+                'url' =>  route('admin.notes.edit', $note->id),
+                'note' => $note->note ,
         ]);
     }
+
 }
